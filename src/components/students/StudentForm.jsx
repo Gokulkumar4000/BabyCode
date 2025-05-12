@@ -8,8 +8,9 @@ import {
   MenuItem,
   Box,
   Paper,
+  Typography,
 } from "@mui/material";
-import { addStudent } from "../../services/studentsAPI"; // Assuming this is how you add the student
+import { addStudent } from "../../services/studentsAPI";
 
 export default function AddStudent() {
   const navigate = useNavigate();
@@ -65,8 +66,9 @@ export default function AddStudent() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        minHeight: "100vh",
         bgcolor: "#f0f2f5",
+        p: 2,
       }}
     >
       <Paper
@@ -75,22 +77,27 @@ export default function AddStudent() {
         onSubmit={handleSubmit}
         sx={{
           width: "100%",
-          maxWidth: { xs: 450, md: 400 }, // Reduced width for laptop/desktop (md breakpoint)
+          maxWidth: "450px",
           p: 4,
           borderRadius: 2,
           bgcolor: "white",
-          mx: 2, // Add some margin on mobile
         }}
       >
-        <Stack spacing={2}>
+        <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
+          Student Dashboard
+        </Typography>
+        
+        <Stack spacing={3}>
           {error && <Alert severity="error">{error}</Alert>}
 
           <TextField
             name="name"
             label="Full Name"
             required
+            fullWidth
             value={formData.name}
             onChange={handleChange}
+            InputLabelProps={{ shrink: true }}
           />
 
           <TextField
@@ -98,8 +105,10 @@ export default function AddStudent() {
             label="Email"
             type="email"
             required
+            fullWidth
             value={formData.email}
             onChange={handleChange}
+            InputLabelProps={{ shrink: true }}
           />
 
           <TextField
@@ -107,8 +116,10 @@ export default function AddStudent() {
             label="Course"
             required
             select
+            fullWidth
             value={formData.course}
             onChange={handleChange}
+            InputLabelProps={{ shrink: true }}
           >
             <MenuItem value="">Select Course</MenuItem>
             <MenuItem value="Computer Science">Computer Science</MenuItem>
@@ -119,8 +130,10 @@ export default function AddStudent() {
           <TextField
             name="grade"
             label="Grade"
+            fullWidth
             value={formData.grade}
             onChange={handleChange}
+            InputLabelProps={{ shrink: true }}
           />
 
           <TextField
@@ -128,6 +141,7 @@ export default function AddStudent() {
             label="Enrollment Date"
             type="date"
             required
+            fullWidth
             value={formData.enrollmentDate}
             onChange={handleChange}
             InputLabelProps={{
@@ -135,8 +149,20 @@ export default function AddStudent() {
             }}
           />
 
-          <Button type="submit" variant="contained" disabled={loading}>
-            {loading ? "Saving..." : "Add Student"}
+          <Button 
+            type="submit" 
+            variant="contained" 
+            size="large"
+            disabled={loading}
+            sx={{
+              mt: 2,
+              py: 1.5,
+              fontWeight: 'bold',
+              textTransform: 'none',
+              fontSize: '1rem',
+            }}
+          >
+            {loading ? "Saving..." : "ADD STUDENT"}
           </Button>
         </Stack>
       </Paper>
