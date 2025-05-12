@@ -61,7 +61,7 @@ export default function AddStudent() {
       elevation={3}
       sx={{
         p: 4,
-        width: "100%",
+        width: "50%%",
         maxWidth: 450,
         borderRadius: 2,
         backgroundColor: "white",
