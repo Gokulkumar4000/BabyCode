@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TextField, Button, Stack, Alert, MenuItem } from "@mui/material";
+import { TextField, Button, Stack, Alert, MenuItem, Box } from "@mui/material";
 import { addStudent } from "../../services/studentsAPI"; // Assuming this is how you add the student
 
 export default function AddStudent() {
-  const navigate = useNavigate(); // Get the navigate function
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     course: "",
     grade: "",
-    enrollmentDate: "", // Add this field for enrollment date
+    enrollmentDate: "",
   });
 
   const [error, setError] = useState("");
@@ -37,9 +37,7 @@ export default function AddStudent() {
     setLoading(true);
 
     try {
-      // Call the addStudent function to add the student to the database
       await addStudent(formData);
-      // Redirect to the home page (dashboard) after successful student addition
       navigate("/");
     } catch (err) {
       setError("An error occurred while adding the student.");
@@ -49,64 +47,74 @@ export default function AddStudent() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Stack spacing={2}>
-        {error && <Alert severity="error">{error}</Alert>}
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        px: 2, // Padding for mobile view
+      }}
+    >
+      <form onSubmit={handleSubmit} style={{ width: "100%", maxWidth: 500 }}>
+        <Stack spacing={2}>
+          {error && <Alert severity="error">{error}</Alert>}
 
-        <TextField
-          name="name"
-          label="Full Name"
-          required
-          value={formData.name}
-          onChange={handleChange}
-        />
+          <TextField
+            name="name"
+            label="Full Name"
+            required
+            value={formData.name}
+            onChange={handleChange}
+          />
 
-        <TextField
-          name="email"
-          label="Email"
-          type="email"
-          required
-          value={formData.email}
-          onChange={handleChange}
-        />
+          <TextField
+            name="email"
+            label="Email"
+            type="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+          />
 
-        <TextField
-          name="course"
-          label="Course"
-          required
-          select
-          value={formData.course}
-          onChange={handleChange}
-        >
-          <MenuItem value="">Select Course</MenuItem>
-          <MenuItem value="Computer Science">Computer Science</MenuItem>
-          <MenuItem value="Mathematics">Mathematics</MenuItem>
-          <MenuItem value="Physics">Physics</MenuItem>
-        </TextField>
+          <TextField
+            name="course"
+            label="Course"
+            required
+            select
+            value={formData.course}
+            onChange={handleChange}
+          >
+            <MenuItem value="">Select Course</MenuItem>
+            <MenuItem value="Computer Science">Computer Science</MenuItem>
+            <MenuItem value="Mathematics">Mathematics</MenuItem>
+            <MenuItem value="Physics">Physics</MenuItem>
+          </TextField>
 
-        <TextField
-          name="grade"
-          label="Grade"
-          value={formData.grade}
-          onChange={handleChange}
-        />
+          <TextField
+            name="grade"
+            label="Grade"
+            value={formData.grade}
+            onChange={handleChange}
+          />
 
-        <TextField
-          name="enrollmentDate"
-          label="Enrollment Date"
-          type="date"
-          required
-          value={formData.enrollmentDate}
-          onChange={handleChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+          <TextField
+            name="enrollmentDate"
+            label="Enrollment Date"
+            type="date"
+            required
+            value={formData.enrollmentDate}
+            onChange={handleChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
 
-        <Button type="submit" variant="contained" disabled={loading}>
-          {loading ? "Saving..." : "Add Student"}
-        </Button>
-      </Stack>
-    </form>
+          <Button type="submit" variant="contained" disabled={loading}>
+            {loading ? "Saving..." : "Add Student"}
+          </Button>
+        </Stack>
+      </form>
+    </Box>
   );
 }
