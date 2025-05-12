@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TextField, Button, Stack, Alert, MenuItem, Box, Paper } from "@mui/material";
-import { addStudent } from "../../services/studentsAPI";
+import {
+  TextField,
+  Button,
+  Stack,
+  Alert,
+  MenuItem,
+  Box,
+  Paper,
+} from "@mui/material";
+import { addStudent } from "../../services/studentsAPI"; // Assuming this is how you add the student
 
 export default function AddStudent() {
   const navigate = useNavigate();
@@ -24,7 +32,12 @@ export default function AddStudent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.course || !formData.enrollmentDate) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.course ||
+      !formData.enrollmentDate
+    ) {
       setError("Name, Email, Course, and Enrollment Date are required");
       return;
     }
@@ -47,27 +60,27 @@ export default function AddStudent() {
   };
 
   return (
-  <Box
-    sx={{
-      minHeight: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      bgcolor: "#f5f5f5", // light background
-      px: 2, // horizontal padding on mobile
-    }}
-  >
-    <Paper
-      elevation={3}
+    <Box
       sx={{
-        p: 4,
-        width: "100%",
-        maxWidth: 250,
-        borderRadius: 2,
-        backgroundColor: "white",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        bgcolor: "#f0f2f5",
       }}
     >
-      <form onSubmit={handleSubmit}>
+      <Paper
+        elevation={3}
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          width: "100%",
+          maxWidth: 450,
+          p: 4,
+          borderRadius: 2,
+          bgcolor: "white",
+        }}
+      >
         <Stack spacing={2}>
           {error && <Alert severity="error">{error}</Alert>}
 
@@ -121,11 +134,11 @@ export default function AddStudent() {
             }}
           />
 
-          <Button type="submit" variant="contained" disabled={loading} fullWidth>
+          <Button type="submit" variant="contained" disabled={loading}>
             {loading ? "Saving..." : "Add Student"}
           </Button>
         </Stack>
-      </form>
-    </Paper>
-  </Box>
-);
+      </Paper>
+    </Box>
+  );
+}
