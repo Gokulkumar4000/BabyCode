@@ -5,7 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./components/auth/Login";
 import AddStudent from "./pages/AddStudent";
 import StudentDetails from "./pages/StudentDetails";
-import AppLayout from "./components/ui/AppLayout";
+import AppLayout from "./components/UI/AppLayout";
 
 export default function App() {
   return (
