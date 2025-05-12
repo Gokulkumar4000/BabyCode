@@ -75,10 +75,11 @@ export default function AddStudent() {
         onSubmit={handleSubmit}
         sx={{
           width: "100%",
-          maxWidth: 450,
+          maxWidth: { xs: 450, md: 400 }, // Reduced width for laptop/desktop (md breakpoint)
           p: 4,
           borderRadius: 2,
           bgcolor: "white",
+          mx: 2, // Add some margin on mobile
         }}
       >
         <Stack spacing={2}>
